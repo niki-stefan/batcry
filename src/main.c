@@ -33,7 +33,15 @@ int main(void) {
     return 1;
   }
 
-  printf("%hhd\n", level);
+  int8_t is_charging_status = is_charging(config.is_charging_filepath, error);
+
+  if (is_charging_status < 0) {
+    printf("%s\n", error);
+
+    return 1;
+  }
+
+  printf("%hhd%%, is_charging=%hhd\n", level, is_charging_status);
 
   free(config.levels);
   return 0;

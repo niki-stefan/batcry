@@ -39,3 +39,30 @@ int8_t get_battery_level(char *path, char *error) {
   fclose(file);
   return level;
 }
+
+int8_t is_charging(char *path, char *error) {
+  FILE *file = fopen(path, "r");
+  int8_t status;
+  int fscanf_return;
+
+  if (file == NULL) {
+    THROW_ERROR(strerror(errno));
+
+    return -1;
+  }
+
+  if ((fscanf_return = fscanf(file, "%hhd", &status)) == EOF) {
+    THROW_ERROR("File is empty");
+
+    return -1;
+  }
+
+  if (fscanf_return == 0) {
+    THROW_ERROR("File must contain a number");
+
+    return -1;
+  }
+
+  fclose(file);
+  return status;
+}
