@@ -15,7 +15,9 @@ struct config {
 struct level {
   int8_t level;
   char command[50];
-  uint8_t when_charging;
+
+  // 000000AB, A = is_charging, B = has_executed
+  uint8_t status;
 };
 
 uint8_t parse_config(char *path, struct config *config, char *error);

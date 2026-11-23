@@ -50,7 +50,10 @@ uint8_t parse_config(char *path, struct config *config, char *error) {
   while (fgets(buffer, 56, file)) {
     offset = 0;
 
-    level.when_charging = (buffer[0] == '#');
+    // if the rhs is 1, it means 00000001 << 1 = 00000010
+    // if the rhs is 0, it means 00000000 << 1 = 00000000
+    // the has_executed flag is the least significant bit, and it is set to 0
+    level.status = (buffer[0] == '#') << 1;
 
     // Skip the first character
     sscanf(buffer + ++offset, "%d", &level.level);
