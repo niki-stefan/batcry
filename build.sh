@@ -9,7 +9,7 @@ do
   echo "compiling src/$source_file"
 
   # ${source_file/.c/.o} replaces .c with .o; -c tells gcc to not link; 
-  gcc "src/$source_file" -o "bin/obj/${source_file/.c/.o}" -c -Iinclude
+  gcc "src/$source_file" -o "bin/obj/${source_file/.c/.o}" -O3 -c -Iinclude
 done
 
 echo 'linking'
